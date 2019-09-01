@@ -33,3 +33,6 @@ The class `ServerSocket` creates the socket and manages starting and stopping th
 
 ### `run_tcp.py`
 This shows how to use `ServerSocket` within a `psychopy` application.  It draws and updates a grating stimulus based on messages received from either the keyboard via `event` or from a TCP source.  The messages are translated into making the grating move to the left, to the right, or quitting the application.
+
+## TO DO:
+Managing sockets manually is cumbersome and likely inefficient.  Code should be rewritten using `zmq`, however, this may require `zmq` to be used in both client and server and so may not work well with legacy code.
