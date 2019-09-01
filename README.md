@@ -1,4 +1,4 @@
-# Example code to create TCP communication for control of Psychtoolbox stimuli
+# Example code to create TCP communication for control of `psychopy` stimuli
 _Yevgeniy B. Sirotin_
 
 This is example code how to control `psychopy` stimuli, namely gratings.  This code goes off the original non-working code in:
