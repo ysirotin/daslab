@@ -27,7 +27,7 @@ if __name__ == "__main__":
     logger = setup_logger()
 
     #create a window
-    mywin = visual.Window([800, 600], monitor="testMonitor", units="deg")
+    mywin = visual.Window([800, 600], monitor="testMonitor", units="deg", gammaErrorPolicy = 'warn')
 
     #create some stimuli
     grating = visual.GratingStim(win=mywin, mask='circle', size=3, pos=[-4,0], sf=3)

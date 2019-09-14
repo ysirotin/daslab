@@ -14,15 +14,14 @@ from threading import Thread
 from threading import Event
 
 class ServerThread(Thread):
-    def __init__(self, host, port, callback, msgsize, logger = None):
+    def __init__(self, host, port, callback, logger = None):
         # initialize class variables
         self._host = host
         self._port = port
         self._callback = callback
-        self._msgsize = msgsize
         self._logger = logger or logging.getLogger(self.__class__.__name__)
         self._stop_event = Event()
-        
+                
         Thread.__init__(self)
         self._logger.debug('thread initialized')
         
@@ -54,10 +53,17 @@ class ServerThread(Thread):
                     conn.setblocking(0)
                     inputs.append(conn)
                 else:                    # incoming connection has data
-                    data = item.recv(self._msgsize) 
-                    self._callback(data)
-                    inputs.remove(item)
-                    item.close()
+                    header = item.recv(2) # read header (2 bytes specifying data size)
+                    if header:                            
+                        sz = int.from_bytes(header, byteorder = 'little')                        
+                        data = item.recv(sz) # receive the data of needed size
+                        if data:
+                            self._callback(data)
+                            
+                    if not header or not data: # if socket was closed by client, recv will return 0
+                        self._logger.debug('clent closed connection')
+                        inputs.remove(item)
+                        item.close()
                     
         self._close_socket()
         self._logger.debug('thread stopped')
@@ -65,16 +71,16 @@ class ServerThread(Thread):
     def stop(self):
         # the function to stop the thread run() loop
         self._stop_event.set()
+        
 
 class ServerSocket:
-    def __init__(self, host = None, port = 55513, callback = None, msgsize = 1024, logger = None):
+    def __init__(self, host = None, port = 55513, callback = None, logger = None):
         # initialize class variables
         self._thread = None
         self._callback = callback or self.default_callback
         
         self._host = host or socket.gethostbyname(socket.gethostname())
         self._port = port
-        self._msgsize = msgsize
         
         self._logger = logger or logging.getLogger(self.__class__.__name__)
         
@@ -88,7 +94,7 @@ class ServerSocket:
             self._callback = callback
 
         self._logger.debug('starting thread')
-        self._thread = ServerThread(self._host, self._port, self._callback, self._msgsize, self._logger)
+        self._thread = ServerThread(self._host, self._port, self._callback, self._logger)
         self._thread.start()
         
     def stop(self):
