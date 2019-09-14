@@ -20,7 +20,14 @@ Now in the second shell run:
 * `python tcp_send r` to change the direction of the grating to the right
 * `python tcp_send q` to shut down the `run_tcp.py` process
 
+The server will respond to multiple messages on each connection.  To test sending multiple messages run:
+* `python tcp_send -D 1 l r l r l r` to have the grating shift several times with a delay of 1 second in between
+* `python tcp_send -D 0.5 l r l r l r` to have the grating shift several times with a delay of 0.5 seconds in between
+
 ## How it works
+### Message format
+In this example, the message format is always a 2-byte header that specifies the data payload size (in bytes) and then the data payload.  The header is in little endian format.
+
 ### `tcp_send.py`
 This CLI is very simple and running `tcp_send.py -h` should explain how it works.
 
