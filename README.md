@@ -24,6 +24,10 @@ The server will respond to multiple messages on each connection.  To test sendin
 * `python tcp_send -D 1 l r l r l r` to have the grating shift several times with a delay of 1 second in between
 * `python tcp_send -D 0.5 l r l r l r` to have the grating shift several times with a delay of 0.5 seconds in between
 
+You can also try out a CLI to send keyboard hits to the server using `tcp_send_keyboard.py`:
+* run `python tcp_send_keyboard`
+* all keyboard hits will be sent to server, hit the `q` key to stop
+
 ## How it works
 ### Message format
 In this example, the message format is always a 2-byte header that specifies the data payload size (in bytes) and then the data payload.  The header is in little endian format.
