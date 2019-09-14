@@ -26,7 +26,9 @@ The server will respond to multiple messages on each connection.  To test sendin
 
 You can also try out a CLI to send keyboard hits to the server using `tcp_send_keyboard.py`:
 * run `python tcp_send_keyboard`
-* all keyboard hits will be sent to server, hit the `q` key to stop (this will also stop the server)
+* all keyboard hits will be sent to server
+* hit the `q` key to stop and shutdown the server
+* hit Ctrl+C to quit without shutting down the server
 
 ## How it works
 ### Message format
