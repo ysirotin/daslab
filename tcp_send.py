@@ -11,10 +11,7 @@ import socket
 import argparse
 import time
 
-# %% Global variables
-
 PORT = 55513
-TERM = b'\x00'
 
 localhost = socket.gethostbyname(socket.gethostname())
 
@@ -24,8 +21,6 @@ parser.add_argument('--port', '-P', type=int, help='server port', default=PORT)
 parser.add_argument('--delay', '-D', type=float, help='message delay', default=0.)
 parser.add_argument('message', nargs = '+')
 args = parser.parse_args()
-
-print(args.message)
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
     try:
