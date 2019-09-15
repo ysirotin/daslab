@@ -9,6 +9,7 @@ This is example code how to control `psychopy` stimuli, namely gratings.  This c
 The file contents are as follows:
 * `requirements.txt`  - a dump of `pip list` for my environment
 * `tcp_send.py` - a simple CLI to send a TCP message
+* `tcp_send_keyboard.py` - a simple CLI to send keyboard hits via TCP messages
 * `tcp_receive.py` - contains a classes for working with TCP messages
 * `run_tcp.py` - runs a basic `psychopy` stimulus controlled by TCP messages 
 
